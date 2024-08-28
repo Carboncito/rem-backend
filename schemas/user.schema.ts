@@ -1,6 +1,20 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 
+@Schema({ timestamps: { createdAt: true, updatedAt: false } })
+export class SavedVideos {
+  @Prop({ required: true, type: String })
+  videoId: string;
+  @Prop({ required: true, type: String })
+  title: string;
+  @Prop({ required: true, type: String })
+  year: string;
+  @Prop({ required: true, type: String })
+  type: string;
+  @Prop({ required: true, type: String })
+  poster: string;
+}
+
 @Schema()
 export class User {
   @Prop({ required: true, type: String, unique: true })
@@ -9,6 +23,10 @@ export class User {
   password: string;
   @Prop({ type: String })
   name?: string;
+  @Prop({ type: String })
+  phone?: string;
+  @Prop({ type: [SavedVideos], default: [] })
+  savedVideos: SavedVideos[];
 }
 
 export type UserDocument = User & Document;

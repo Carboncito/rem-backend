@@ -1,5 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
+import { UserTokenPayload } from 'src/models';
 import { UserService } from 'src/user';
 import { BcryptService } from 'src/utils';
 
@@ -20,7 +21,10 @@ export class AuthService {
 
     if (!isValidPassword) throw new NotFoundException();
 
-    const payload = { id: user._id, email: user.email };
+    const payload: UserTokenPayload = {
+      id: user._id as string,
+      email: user.email,
+    };
 
     return { token: await this.jwtService.signAsync(payload) };
   }
