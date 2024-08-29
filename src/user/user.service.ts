@@ -17,8 +17,8 @@ export class UserService {
   }
 
   async addToWatchlist(userId: string, video: Video) {
-    this.watchlist.add(userId, video);
-    return video;
+    const user = await this.watchlist.add(userId, video);
+    return user.watchlist;
   }
 
   async getWatchlist(userId: string) {

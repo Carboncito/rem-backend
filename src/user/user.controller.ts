@@ -16,6 +16,6 @@ export class UserController {
   @Get('watchlist')
   async getWatchlist(@Request() req) {
     const user: UserTokenPayload = req.user;
-    return this.userService.getWatchlist(user.id);
+    return (await this.userService.getWatchlist(user.id)).watchlist;
   }
 }
