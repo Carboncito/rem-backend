@@ -5,15 +5,15 @@ import { User, UserDocument } from 'schemas';
 import { Video } from '../models';
 
 @Injectable()
-export class SavedVideosService {
+export class WatchlistService {
   constructor(@InjectModel(User.name) private userModel: Model<UserDocument>) {}
 
-  addVideo(userId: string, video: Video) {
+  add(userId: string, video: Video) {
     return this.userModel
       .findByIdAndUpdate(
         userId,
         {
-          $push: { savedVideos: video },
+          $push: { watchlist: video },
         },
         { new: true },
       )

@@ -7,9 +7,9 @@ import { UserTokenPayload } from 'src/models';
 export class UserController {
   constructor(private userService: UserService) {}
 
-  @Post('videos')
+  @Post('watchlist')
   async addVideo(@Body() addVideoDto: AddVideoDto, @Request() req) {
     const user: UserTokenPayload = req.user;
-    return this.userService.addVideo(user.id, addVideoDto);
+    return this.userService.add(user.id, addVideoDto);
   }
 }
