@@ -20,4 +20,8 @@ export class WatchlistService {
       .lean()
       .exec();
   }
+
+  get(userId: string) {
+    return this.userModel.findById(userId).select('watchlist').lean().exec();
+  }
 }

@@ -1,4 +1,4 @@
-import { Body, Controller, Post, Request } from '@nestjs/common';
+import { Body, Controller, Get, Post, Request } from '@nestjs/common';
 import { AddVideoDto } from './dto';
 import { UserService } from './user.service';
 import { UserTokenPayload } from 'src/models';
@@ -8,8 +8,14 @@ export class UserController {
   constructor(private userService: UserService) {}
 
   @Post('watchlist')
-  async addVideo(@Body() addVideoDto: AddVideoDto, @Request() req) {
+  async addToWatchlist(@Body() addVideoDto: AddVideoDto, @Request() req) {
     const user: UserTokenPayload = req.user;
-    return this.userService.add(user.id, addVideoDto);
+    return this.userService.addToWatchlist(user.id, addVideoDto);
+  }
+
+  @Get('watchlist')
+  async getWatchlist(@Request() req) {
+    const user: UserTokenPayload = req.user;
+    return this.userService.getWatchlist(user.id);
   }
 }

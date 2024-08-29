@@ -16,8 +16,12 @@ export class UserService {
     return this.userModel.findOne({ email }).lean().exec();
   }
 
-  async add(userId: string, video: Video) {
+  async addToWatchlist(userId: string, video: Video) {
     this.watchlist.add(userId, video);
     return video;
+  }
+
+  async getWatchlist(userId: string) {
+    return this.watchlist.get(userId);
   }
 }
