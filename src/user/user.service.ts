@@ -12,7 +12,7 @@ export class UserService {
     private watchlist: WatchlistService,
   ) {}
 
-  async findByEmail(email: string) {
+  findByEmail(email: string) {
     return this.userModel.findOne({ email }).lean().exec();
   }
 
@@ -21,7 +21,11 @@ export class UserService {
     return user.watchlist;
   }
 
-  async getWatchlist(userId: string) {
+  getWatchlist(userId: string) {
     return this.watchlist.get(userId);
+  }
+
+  deleteVideo(userId: string, videoId: string) {
+    return this.watchlist.delete(userId, videoId);
   }
 }

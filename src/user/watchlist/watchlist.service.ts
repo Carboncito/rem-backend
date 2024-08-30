@@ -24,4 +24,18 @@ export class WatchlistService {
   get(userId: string) {
     return this.userModel.findById(userId).select('watchlist').lean().exec();
   }
+
+  delete(userId: string, videoId: string) {
+    return this.userModel
+      .findByIdAndUpdate(
+        userId,
+        {
+          $pull: { watchlist: { _id: videoId } },
+        },
+        { new: true },
+      )
+      .select('watchlist')
+      .lean()
+      .exec();
+  }
 }
